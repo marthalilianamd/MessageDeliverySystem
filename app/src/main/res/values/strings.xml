@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Message Delivery System</string>
+
+    <!--Intro -->
+    <string name="btnRegister">Soy usuario nuevo</string>
+    <string name="btnLogin">Tengo mi cuenta</string>
+
+    <!--Login -->
+    <string name="loginTitle">INGRESAR</string>
+    <string name="forgotPass">Olvidó su contraseña?</string>
+    <string name="introEmail">Ingresa email</string>
+    <string name="introPass">Ingresa la contraseña</string>
+    <string name="forgotText">Olvidó la contraseña?</string>
+    <string name="hintText"> </string>
+    <string name="ir">Ingresar</string>
+
+    <!--Register -->
+    <string name="registerTitle">REGISTRO</string>
+    <string name="title_activity_account">MessageDeliverySystem</string>
+
+    <!-- Account -->
+    <string name="AccountTitle">Mi información</string>
+    <string name="textEmail">Usuario :</string>
+    <string name="textName">Nombre : </string>
+    <string name="textMovil">Email :</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="textWelcome">Bienvenido</string>
+
+    <!-- menu main -->
+    <string name="logout">Cerrar sesión</string>
+    <string name="openMensajes">Mensajes</string>
+    <string name="myenviados">Enviados</string>
+    <string name="myLocation">Mi ubicación</string>
+    <string name="settings">Mi cuenta</string>
+    <string name="about">Acerca de</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- url json google api places -->
+    <string name="resUrl">"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.3914105,-5.9591776&amp;radius=1500&amp;type=mensaje&amp;key=AIzaSyBOTR1kAzmAQ9FV7M9n7qvy7_irmi_DBCs</string>
+
+    <!-- mensajes -->
+    <string name="mensaje.tittle">Nuevos mensajes</string>
+    <string name="mensaje.hint.titulo">Asunto</string>
+    <string name="mensaje.hint.contenido">Contenido</string>
+    <string name="mensaje.hint.tipo">Tipo</string>
+    <string name="mensaje.hint.fecha">Fecha</string>
+    <string name="mensaje.hint.estado">Sin leer</string>
+    <string name="title_activity_enviados">EnviadosActivity</string>
+
+    <!-- Enviados -->
+    <string name="enviados.tittle">Enviados</string>
+    <string name="enviado.asunto">Asunto</string>
+    <string name="enviado.without">Sin enviar</string>
+
+    <!-- location -->
+    <string name="location.tittle">Ubicación</string>
+
+    <!-- about -->
+    <string name="about.tittle">Acerca de esta App</string>
+    <string name="aboutDescription">MessageDeliverySystem version 1.0.\nEs una app para el envío\n
+        de información \n generada desde un Sistema Web y pueda\n  ser enviado como SMS a otros dispositivos móviles \n\n
+    </string>
+</resources>

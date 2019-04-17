@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.mlmunozd.app.MessageDeliverySystem.Fragments.MensajeDetailsFragment"
+    tools:showIn="@layout/fragment_details_mensajes">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/text_marginDetails">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mensaje.hint.titulo"
+            android:theme="@style/fontCardMensajeTitle" />
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/tvTituloMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:inputType="textPersonName|textCapWords"
+                android:focusableInTouchMode="false"
+                android:maxLength="@integer/nombre.maxLenght"
+                app:hintTextAppearance="@style/fontHint" />
+
+        <!--end mensaje titulo -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="89dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mensaje.hint.contenido" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tvContenidoMensaje"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:enabled="false"
+                    android:focusableInTouchMode="false"
+                    android:maxLength="@integer/enviado.maxLenght" />
+
+            </LinearLayout>
+
+            <!--end mensaje contenido  -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="89dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mensaje.hint.fecha" />
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tvFechaMensaje"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:enabled="false"
+                    android:focusableInTouchMode="false"
+                    android:maxLength="@integer/km.maxLenght" />
+
+            </LinearLayout>
+            <!--end mensaje fecha  -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEnviar"
+                    android:layout_width="450dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/fontBtns"
+                    android:text="Enviar"
+                    android:background="@drawable/border_button" />
+            </LinearLayout>
+
+            <!--end send button -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

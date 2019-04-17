@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1087302060910",
+    "firebase_url": "https://message-delivery-system.firebaseio.com",
+    "project_id": "message-delivery-system",
+    "storage_bucket": "message-delivery-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087302060910:android:7c88857118a3e27c",
+        "android_client_info": {
+          "package_name": "message.delivery.movil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087302060910-htv8mmhh86o2csburqeomk2c6rst82bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRL9FbxWHxQwuHxj6vMiKKl8Ih_wigPyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087302060910-htv8mmhh86o2csburqeomk2c6rst82bl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

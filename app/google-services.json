@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1087302060910",
+    "firebase_url": "https://message-delivery-system.firebaseio.com",
+    "project_id": "message-delivery-system",
+    "storage_bucket": "message-delivery-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087302060910:android:620b9cb1a3a5bcf5",
+        "android_client_info": {
+          "package_name": "org.mlmunozd.app.MessageDeliverySystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087302060910-brh4s461mftl1q8k4ajs6uqe71ph0jr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mlmunozd.app.MessageDeliverySystem",
+            "certificate_hash": "ed74c4547498212bb6f31254d64883da47210ec9"
+          }
+        },
+        {
+          "client_id": "1087302060910-htv8mmhh86o2csburqeomk2c6rst82bl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRL9FbxWHxQwuHxj6vMiKKl8Ih_wigPyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087302060910-htv8mmhh86o2csburqeomk2c6rst82bl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

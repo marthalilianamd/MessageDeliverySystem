@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="nombre.maxLenght">30</integer>
+    <integer name="precio.maxLenght">4</integer>
+    <integer name="km.maxLenght">8</integer>
+    <integer name="hora.maxLenght">5</integer>
+    <integer name="direccion.maxLenght">50</integer>
+    <integer name="enviado.maxLenght">8</integer>
+    <integer name="foodDescription.maxLenght">50</integer>
+</resources>
