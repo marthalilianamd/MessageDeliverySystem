@@ -57,12 +57,7 @@
     <string name="enviado.asunto">Asunto</string>
     <string name="enviado.without">Sin enviar</string>
 
-    <!-- location -->
-    <string name="location.tittle">Ubicación</string>
-
     <!-- about -->
     <string name="about.tittle">Acerca de esta App</string>
-    <string name="aboutDescription">MessageDeliverySystem version 1.0.\nEs una app para el envío\n
-        de información \n generada desde un Sistema Web y pueda\n  ser enviado como SMS a otros dispositivos móviles \n\n
-    </string>
+    <string name="aboutDescription">MessageDeliverySystem version 1.0.\nEs una app para el envío\n de información \n generada desde un Sistema Web y pueda\n  ser enviado como SMS a otros dispositivos móviles \n\n </string>
 </resources>

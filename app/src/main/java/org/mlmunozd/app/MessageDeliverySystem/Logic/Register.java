@@ -12,11 +12,16 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
+import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Service.MyFirebaseMessagingService;
 
 import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
+    private MyFirebaseMessagingService myfirebaseservice;
+
+    private static final String TAG = "Register";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,36 +45,40 @@ public class Register extends AppCompatActivity {
                 }
                 if (!validarEmail(email)) {
                     emailText.setError("Email inválido");
-                } else
-                    {
-                        User usermodel = User.getInstance();
-                        if(usermodel.getUser(email)==null)
-                        {
-                            try
-                            {
-                                registerUser(usermodel,email,pass);
-
-                            } catch (Exception e) {
+                }else{
+                    User usermodel = User.getInstance();
+                    if(usermodel.getUser(email)==null){
+                        if(usermodel.getToken_movil().equals("")){
+                            registrarMovilAlServer(email);
+                            try {
+                                registerUser(usermodel, email, pass, SessionManager.getInstance(getApplicationContext()).getTokenMovil());
+                            }catch (Exception e) {
                                 e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), "Usuario no creado, posible problema" +
-                                        "del sistema", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Usuario no creado, posible problema " +"del sistema", Toast.LENGTH_LONG).show();
                                 Log.e("DBFLow", "Error: al insertar datos del usuario");
                             }
+                        }else{
+                            Toast.makeText(getApplicationContext(),"El móvil ya ha sido registrado", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(),"Ya existe un usuario con este email", Toast.LENGTH_LONG).show();
-                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Ya existe un usuario con este email", Toast.LENGTH_LONG).show();
                     }
                 }
-            });
-        }
+            }
+        });
+    }
 
-    public void registerUser(User usermodel,String email,String pass){
+    public void registrarMovilAlServer(String email){
+        //Registrar movil a FCM
+        myfirebaseservice = new MyFirebaseMessagingService();
+        myfirebaseservice.registrarMovil( Register.this, email);
+    }
+    public void registerUser(User usermodel,String email,String pass, String tokenMovil){
         usermodel.setEmail(email);
         usermodel.setPassword(pass);
+        usermodel.setToken_movil(tokenMovil);
         usermodel.save();
-        Toast.makeText(getApplicationContext(), "Usuario creado con éxito",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Registro de usuario con éxito en la App", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

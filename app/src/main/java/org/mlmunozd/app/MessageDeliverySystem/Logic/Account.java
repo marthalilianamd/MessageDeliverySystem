@@ -96,14 +96,7 @@ public class Account extends AppCompatActivity implements NavigationView.OnNavig
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_music) {
-            //getApplicationContext().stopService(new Intent(getApplicationContext(),MusicService.class));
-            return true;
-        }*/
-
+        //int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
@@ -129,10 +122,7 @@ public class Account extends AppCompatActivity implements NavigationView.OnNavig
             EnviadoFragment enviadoFragment = new EnviadoFragment();
             loadFragment(enviadoFragment,"fragmento_enviado");
 
-        }/* else if (id == R.id.nav_location) {
-            MapFragment mapFragment = new MapFragment();
-            loadFragment(mapFragment, "fragmento_mapa");
-        }*/
+        }
         else if (id == R.id.nav_settings) {
             AccountFragment accountFragment = new AccountFragment();
             Bundle args = new Bundle();
@@ -154,7 +144,6 @@ public class Account extends AppCompatActivity implements NavigationView.OnNavig
                             SessionManager.getInstance(getApplicationContext()).logoutUser();
                             Intent intent = new Intent(getApplicationContext(),Intro.class);
                             startActivity(intent);
-                            //getApplicationContext().stopService(new Intent(getApplicationContext(),MusicService.class));
                             finish();
                         }
             });

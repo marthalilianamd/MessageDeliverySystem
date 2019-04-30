@@ -21,6 +21,7 @@ public class SessionManager {
     private static final String PREF_NAME = "MessageDeliverySystemPREF";
     private static final String IS_LOGIN = "IsLoggedIn";
     public static final String KEY_EMAIL = "email";
+    public static final String TOKEN_MOVIL = "tokenmovil";
 
     public SessionManager(Context context){
         this._context =context;
@@ -77,5 +78,14 @@ public class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(intent);
+    }
+
+    public void saveTokenMovil(String token){
+        editor.putString(TOKEN_MOVIL,token);
+        editor.commit();
+    }
+
+    public String getTokenMovil(){
+        return mypreferences.getString(TOKEN_MOVIL,"");
     }
 }

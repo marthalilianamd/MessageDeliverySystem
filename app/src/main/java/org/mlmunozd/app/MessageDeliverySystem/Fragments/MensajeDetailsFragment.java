@@ -105,8 +105,8 @@ public class MensajeDetailsFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setIcon(R.mipmap.applogo);
-                dialog.setTitle("Pedido");
-                dialog.setMessage("Está seguro de realizar el pedido?");
+                dialog.setTitle("Mensaje enviado");
+                dialog.setMessage("Está seguro de enviar el mensaje?");
                 dialog.setPositiveButton("Si",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -115,13 +115,13 @@ public class MensajeDetailsFragment extends Fragment {
                         User user = User.getInstance().getUser(email);
                         Enviado Enviado = new Enviado();
                         Enviado.setTituloMensaje(mMensaje.getTitulo());
-                        Enviado.setMensajeDescription("Salmorejo Cordobes.Tipica Sopa Andaluza con tomate y jamón");
+                        Enviado.setMensajeDescription("reunión mañana 8pm");
 
                         Enviado.setUser(user);
                         try {
                             Enviado.save();
 
-                            Snackbar.make(view, "Pedido #" +Enviado.getNumEnviado()+
+                            Snackbar.make(view, "Mensaje enviado #" +Enviado.getNumEnviado()+
                             " realizado exitosamente!", Snackbar.LENGTH_INDEFINITE)
                             .setActionTextColor(getResources().getColor(R.color.greenBg))
                             .setAction("CONTINUAR", new View.OnClickListener() {
@@ -129,14 +129,14 @@ public class MensajeDetailsFragment extends Fragment {
                                 public void onClick(View v) {
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setMessage("¿Quiere añadir este evento en su Calendario?")
+                                    builder.setMessage("¿Si es un cita, Quiere añadir este evento en su Calendario?")
                                             .setTitle("Envio mensaje")
                                             .setPositiveButton("Si", new DialogInterface.OnClickListener()  {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     Log.i("Dialogos", "Confirmacion Aceptada.");
 
                                                     CreateEventCalendar("Mensaje enviado :", mMensaje.getTitulo(),
-                                                            "Recoger pedido antes de la hora indicada ",
+                                                            "Recuerda la cita es a la hora indicada ",
                                                             "21","40");
 
                                                     EnviadoFragment EnviadoFragment = new EnviadoFragment();
@@ -166,7 +166,7 @@ public class MensajeDetailsFragment extends Fragment {
                             showNotificacion(Enviado);
                         }
                         catch (Exception e){
-                            Log.e("Error:","No inserta pedido en la BD ->" +e);
+                            Log.e("Error:","No inserta mensaje en la BD ->" +e);
                         }
                     }
                 });
@@ -222,7 +222,7 @@ public class MensajeDetailsFragment extends Fragment {
         NotificationManager notificationManager= (NotificationManager) getContext().
                 getSystemService(NOTIFICATION_SERVICE);
 
-        String message = "No olvidar recoger el pedido antes de las "+ Enviado.getFechaEnviado() +" en el mensaje " + mMensaje.getTitulo()+
+        String message = "No olvidar la cita a las "+ Enviado.getFechaEnviado() +" sobre " + mMensaje.getTitulo()+
                 " ubicado en "+ mMensaje.getTitulo();
 
         Notification.Builder builder = new Notification.Builder(getContext());

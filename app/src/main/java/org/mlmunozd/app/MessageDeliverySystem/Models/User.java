@@ -26,6 +26,9 @@ public class User extends BaseModel{
     @Column
     private int movil;
 
+    @Column
+    private String token_movil = "";
+
     //Enviados
     List<Enviado> enviados;
 
@@ -70,6 +73,12 @@ public class User extends BaseModel{
         this.movil = movil;
     }
 
+    public User(String email, String password, String token_movil) {
+        this.email = email;
+        this.password = password;
+        this.token_movil = token_movil;
+    }
+
     public int getIdUSer() {
         return idUSer;
     }
@@ -100,6 +109,14 @@ public class User extends BaseModel{
 
     public void setMovil(int movil) {
         this.movil = movil;
+    }
+
+    public String getToken_movil() {
+        return token_movil;
+    }
+
+    public void setToken_movil(String token_movil) {
+        this.token_movil = token_movil;
     }
 
     public User getUser(String emailUser){

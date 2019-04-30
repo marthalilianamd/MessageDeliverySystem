@@ -1,8 +1,8 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -12,9 +12,11 @@ import android.widget.Toast;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Service.MyFirebaseMessagingService;
 
 public class Login extends AppCompatActivity {
     public static final String EXTRA_MESSAGE="";
+    private MyFirebaseMessagingService myfirebaseservice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,13 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     if ((usermodel.getUser(email) != null)) {
-                        if (usermodel.getUser(email).getEmail().equals(email) && usermodel.getUser(email).getPassword().equals(pass)) {
+                        if (usermodel.getUser(email).getEmail().equals(email) && usermodel.getUser(email).getPassword().equals(pass)){
+
                             //creating user login session
                             SessionManager.getInstance(getApplicationContext()).createLoginSession(email);
                             String[] nickname = email.split("@");
-                            Toast.makeText(getApplicationContext(), "Usuario " + nickname[0] +
-                                    " ha iniciado sesión.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "El usuario " + nickname[0] +" iniciando sesión.",
+                                    Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),Account.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -57,10 +60,10 @@ public class Login extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "El Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "Usuario no existe", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "El Usuario no existe", Toast.LENGTH_LONG).show();
                     }
                 }
             }
