@@ -1,4 +1,4 @@
-package org.mlmunozd.app.MessageDeliverySystem.Service;
+package org.mlmunozd.app.MessageDeliverySystem.Services;
 
 import android.app.Notification;
 import android.app.NotificationManager;

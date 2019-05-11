@@ -10,7 +10,7 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="text_marginDetails">10dp</dimen>
     <dimen name="main.padding.small">4dp</dimen>
-    <dimen name="img.item.size">80dp</dimen>
+    <dimen name="img.item.size">60dp</dimen>
     <dimen name="app.bar.height">220dp</dimen>
     <dimen name="imageView.margin">2dp</dimen>
     <dimen name="imageView.inset">-4dp</dimen>

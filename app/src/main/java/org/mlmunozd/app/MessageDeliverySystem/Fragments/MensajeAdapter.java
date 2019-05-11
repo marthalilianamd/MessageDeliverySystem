@@ -6,14 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 
 import org.mlmunozd.app.MessageDeliverySystem.Logic.Mensaje;
 import org.mlmunozd.app.MessageDeliverySystem.R;
@@ -49,24 +44,11 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.ViewHold
         holder.setListener(mensaje,listener);
 
         holder.tvTituloMensaje.setText(mensaje.getTitulo());
-        holder.tvEstado.setText(mensaje.getEstado());
+        holder.tvContenidoMensaje.setText(mensaje.getContenido());
 
-        if(mensaje.getIcon()!=null){
-            RequestOptions requestOptions = new RequestOptions();
-            //guardar la imagen origen y transformada en cache.
-            requestOptions.diskCacheStrategy(DiskCacheStrategy.ALL);
-            //recprtar la imagen y centrarla
-            requestOptions.centerCrop();
-            //requestOptions.placeholder(R.drawable.ic_image_black_24dp);
+        holder.imgMensaje.setImageDrawable(ContextCompat.getDrawable
+                (context,R.drawable.ic_message_black_80dp));
 
-            Glide.with(context).load(mensaje.getIcon())
-                    .apply(requestOptions)
-                    .into(holder.imgMensaje);
-        }
-        else{
-            holder.imgMensaje.setImageDrawable(ContextCompat.getDrawable
-                    (context,R.drawable.ic_mensaje_black_80dp));
-        }
     }
 
     @Override
@@ -84,14 +66,14 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.ViewHold
     //Main class
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvTituloMensaje;
-        TextView tvEstado;
+        TextView tvContenidoMensaje;
         RelativeLayout containerMain;
         ImageView imgMensaje;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvTituloMensaje = itemView.findViewById(R.id.tvTituloMensaje);
-            tvEstado = itemView.findViewById(R.id.tvEstado);
+            tvContenidoMensaje = itemView.findViewById(R.id.tvContenidoMensaje);
             containerMain = itemView.findViewById(R.id.containerMain);
             imgMensaje = itemView.findViewById(R.id.imgMensaje);
         }

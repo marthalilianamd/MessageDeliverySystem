@@ -88,4 +88,13 @@ public class SessionManager {
     public String getTokenMovil(){
         return mypreferences.getString(TOKEN_MOVIL,"");
     }
+
+    public void saveEmail(String email){
+        editor.putString(KEY_EMAIL,email);
+        editor.commit();
+    }
+
+    public String getEmail(){
+        return mypreferences.getString(KEY_EMAIL,"");
+    }
 }

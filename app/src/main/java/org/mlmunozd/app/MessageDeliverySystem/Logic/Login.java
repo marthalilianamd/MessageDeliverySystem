@@ -12,7 +12,7 @@ import android.widget.Toast;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
-import org.mlmunozd.app.MessageDeliverySystem.Service.MyFirebaseMessagingService;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MyFirebaseMessagingService;
 
 public class Login extends AppCompatActivity {
     public static final String EXTRA_MESSAGE="";

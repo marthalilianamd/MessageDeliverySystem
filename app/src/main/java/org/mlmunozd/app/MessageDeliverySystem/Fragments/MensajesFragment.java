@@ -65,9 +65,11 @@ public class MensajesFragment extends Fragment implements OnItemClickListener {
         configAdpater();
         configRecyclerView();
 
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.3914105,-5.9591776&radius=1500&type=Mensaje&key=AIzaSyBOTR1kAzmAQ9FV7M9n7qvy7_irmi_DBCs";
-        CargarJsonTask tarea = new CargarJsonTask();
-        tarea.execute(url);
+        //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.3914105,-5.9591776&radius=1500&type=Mensaje&key=AIzaSyBOTR1kAzmAQ9FV7M9n7qvy7_irmi_DBCs";
+        //CargarJsonTask tarea = new CargarJsonTask();
+        //tarea.execute(url);
+
+
     }
 
     private void configAdpater() {

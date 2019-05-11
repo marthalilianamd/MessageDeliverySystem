@@ -10,12 +10,13 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.MessageDeliverySystemDatabase;
 
 import java.util.List;
+import java.util.Objects;
 
 @Table(database = MessageDeliverySystemDatabase.class)
 public class User extends BaseModel{
 
     @PrimaryKey(autoincrement = true)
-    private int idUSer;
+    private int idUSer=0;
 
     @Column
     private String email;
@@ -126,6 +127,7 @@ public class User extends BaseModel{
                 .querySingle();
         return user;
     }
+
 
     @Override
     public boolean equals(Object o) {
