@@ -25,6 +25,9 @@ import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.Util.NotificationUtils;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,7 +78,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Compruebe si el mensaje contiene una carga útil de notificación (notification payload.)
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Cuerpo de notificación de mensajes: " + remoteMessage.getNotification().getBody());
-            handleNotification(remoteMessage.getNotification().getBody());
+            String titulo = remoteMessage.getNotification().getTitle();
+            String texto = remoteMessage.getNotification().getBody();
+            handleNotification(titulo, texto);
         }
 
         // Además, si pretende generar sus propias notificaciones como resultado de una FCM recibida
@@ -89,17 +94,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // Si la aplicación está en primer plano,
     // el método handleNotification maneja el mensaje de notificación.
 
-    private void handleNotification(String message) {
-        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-            // La aplicación está en primer plano, emite el mensaje
-            Intent notification = new Intent();
-            notification.putExtra("message", message);
-            //LocalBroadcastManager:
-            // se utiliza para transmitir el mensaje a todas las actividades registradas para el receptor de difusión.
-            LocalBroadcastManager.getInstance(this).sendBroadcast(notification);
-        } else {
-            // Si la aplicación está en segundo plano, Firebase se encarga de la notificación.
-        }
+    private void handleNotification(String title, String message) {
+        Log.d(TAG, "NOTIFICACION RECIBIDA");
+        Log.d(TAG, "Título: " + title);
+        Log.d(TAG, "Texto: " + message);
+        // La aplicación está en primer plano, emite el mensaje
+        Intent notificationintent = new Intent();
+        ///notification.putExtra("title", title);
+        //notification.putExtra("message", message);
+
+        showNotificationMessage(getApplicationContext(),title,message, notificationintent);
+        //LocalBroadcastManager:
+        // se utiliza para transmitir el mensaje a todas las actividades registradas para el receptor de difusión.
+        //LocalBroadcastManager.getInstance(this).sendBroadcast(notification);
+
     }
 
     // Este método mostrará la notificación.
@@ -108,7 +116,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // Firebase Cloud Messaging
     private void handleDataMessage(JSONObject json) {
         //Opcionalmente se muestra el json en el registro.
-        Log.e(TAG, "Notification JSON " + json.toString());
+        Log.e(TAG, "Datos JSON RECIBIDOS" + json.toString());
         try {
             //getting the json data
             JSONObject data = json.getJSONObject("data");
@@ -142,10 +150,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /**
      * Muestra la notificación
      */
-    private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent) {
+    private void showNotificationMessage(Context context, String title, String message, Intent intent) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        notificationUtils.showNotificationMessage(title, message, timeStamp, intent);
+        notificationUtils.showNotificationMessage(title, message, intent);
     }
 
     /**
@@ -176,7 +184,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             usermodel.setToken_movil(newToken);
                             SessionManager.getInstance(activity.getApplicationContext()).saveTokenMovil(newToken);
                             Toast.makeText(activity.getApplicationContext(), "Token de registro generado : " + newToken, Toast.LENGTH_LONG).show();
-                            enviarRegistroMovilAlServidor(activity, email);
+                            MyServerRequests myServerRequests = new MyServerRequests();
+                            myServerRequests.enviarRegistroMovilAlServidor(activity, email);
                         }
                     });
         } catch (Exception e) {
@@ -185,36 +194,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    public void enviarRegistroMovilAlServidor(final Activity activity, String email) {
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, EndPoints.URL_REGISTER_DEVICE + email + ".json",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject obj = new JSONObject(response);
-                            Toast.makeText(activity.getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("TAG", "Error Respuesta en JSON: " + error.getMessage());
-                        Toast.makeText(activity.getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-
-            // Mapeo de los pares clave-valor que se enviarán al sistema web externo
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                Log.e(TAG, SessionManager.getInstance(activity.getApplicationContext()).getTokenMovil());
-                params.put("fcm_registro", SessionManager.getInstance(activity.getApplicationContext()).getTokenMovil());
-                return params;
-            }
-        };
-        MyVolleyRequest.getInstance(activity.getApplicationContext()).addToRequestQueue(stringRequest);
-    }
 }

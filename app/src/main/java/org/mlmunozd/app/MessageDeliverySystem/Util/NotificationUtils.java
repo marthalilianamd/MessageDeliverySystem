@@ -13,10 +13,6 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import org.mlmunozd.app.MessageDeliverySystem.R;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -29,15 +25,10 @@ public class NotificationUtils {
         this.mContext = mContext;
     }
 
-    public void showNotificationMessage(String title, String message, String timeStamp, Intent intent) {
-        showNotificationMessage(title, message, timeStamp, intent, null);
-    }
-
-    public void showNotificationMessage(final String title, final String message, final String timeStamp, Intent intent, String imageUrl) {
+    public void showNotificationMessage(final String title, final String message,Intent intent) {
         // Compruebe si hay un mensaje vacío
         if (TextUtils.isEmpty(message))
             return;
-
         // icono de notificación
         final int icon = R.mipmap.applogo;
 
@@ -45,22 +36,16 @@ public class NotificationUtils {
         final PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
 
-        showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent);
-    }
-
-    private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title,
-       String message, String timeStamp, PendingIntent resultPendingIntent) {
-
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.addLine(message);
 
         Notification notification;
-        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(System.currentTimeMillis())
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setStyle(inboxStyle)
-                .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.applogo)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
@@ -104,14 +89,4 @@ public class NotificationUtils {
         notificationManager.cancelAll();
     }
 
-    public static long getTimeMilliSec(String timeStamp) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date date = format.parse(timeStamp);
-            return date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 }

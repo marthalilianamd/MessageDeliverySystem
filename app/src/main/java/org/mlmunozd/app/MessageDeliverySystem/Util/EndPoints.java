@@ -1,4 +1,4 @@
-package org.mlmunozd.app.MessageDeliverySystem.Services;
+package org.mlmunozd.app.MessageDeliverySystem.Util;
 
 public class EndPoints {
 
