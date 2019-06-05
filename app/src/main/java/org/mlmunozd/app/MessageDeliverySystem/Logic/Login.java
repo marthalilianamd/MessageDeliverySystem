@@ -12,7 +12,6 @@ import android.widget.Toast;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
-import org.mlmunozd.app.MessageDeliverySystem.Services.MyFirebaseMessagingService;
 
 public class Login extends AppCompatActivity {
     public static final String EXTRA_MESSAGE="";
@@ -24,7 +23,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //The instruction next hides keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         ImageButton btnLogin = findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -53,14 +51,15 @@ public class Login extends AppCompatActivity {
                             String[] nickname = email.split("@");
                             Toast.makeText(getApplicationContext(), "El usuario " + nickname[0] +" iniciando sesión.",
                                     Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(),Account.class);
+
+                            Intent intent = new Intent(getApplicationContext(), Account.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra(EXTRA_MESSAGE,email);
+                            intent.putExtra(EXTRA_MESSAGE, email);
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(getApplicationContext(), "El Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Email o contraseña incorrecta", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), "El Usuario no existe", Toast.LENGTH_LONG).show();

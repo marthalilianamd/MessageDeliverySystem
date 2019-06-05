@@ -30,22 +30,6 @@ public class User extends BaseModel{
     @Column
     private String token_movil = "";
 
-    //Enviados
-    List<Enviado> enviados;
-
-
-    @OneToMany(methods = OneToMany.Method.ALL, variableName = "enviados")
-    public List<Enviado> getEnviados(){
-        if(enviados==null || enviados.isEmpty()){
-            enviados = SQLite.select()
-                    .from(Enviado.class)
-                    .where(Enviado_Table.user_idUSer.eq(idUSer))
-                    .queryList();
-        }
-        return enviados;
-    }
-
-
     /*
     * Implementations Singleton
     */

@@ -22,12 +22,14 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <include layout="@layout/content_mensages" />
+
+    <!--<LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="54dp"
         android:layout_toEndOf="@+id/appBarLayoutMain"
-        android:orientation="vertical"/>
+        android:orientation="vertical"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

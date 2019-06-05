@@ -1,8 +1,10 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,9 +13,11 @@ import org.mlmunozd.app.MessageDeliverySystem.R;
 
 import java.util.HashMap;
 
+import jonathanfinerty.once.Once;
+
 public class Intro extends AppCompatActivity {
 
-    public static final String SESSION_DATA="";
+    public static String SESSION_DATA="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,7 @@ public class Intro extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
         Button btnRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
 
@@ -56,5 +61,6 @@ public class Intro extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
     }
 }

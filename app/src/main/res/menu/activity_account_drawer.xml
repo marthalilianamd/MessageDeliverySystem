@@ -9,11 +9,11 @@
             android:icon="@drawable/ic_message_black_24dp"
             android:title="@string/openMensajes" />
 
-        <item
+        <!--<item
             android:id="@+id/nav_enviados"
             android:icon="@drawable/ic_menu_send"
             android:title="@string/myenviados" />
-        <!--<item
+        <item
         android:id="@+id/nav_location"
         android:icon="@drawable/ic_my_location_black_24dp"
         android:title="@string/myLocation" />-->

@@ -1,9 +1,8 @@
-package org.mlmunozd.app.MessageDeliverySystem.Services;
+package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
 import android.content.Context;
 
 import com.android.volley.Cache;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

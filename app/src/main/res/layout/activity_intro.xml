@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greenBg"
     tools:context="org.mlmunozd.app.MessageDeliverySystem.Logic.Intro">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
     <ImageView
         android:id="@+id/appLogo"
         android:layout_width="165dp"
         android:layout_height="152dp"
         android:src="@mipmap/applogo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242"
+        android:layout_marginBottom="20dp"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -28,38 +27,25 @@
         android:enabled="false"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:theme="@style/fontTitleApp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.559" />
+        android:layout_marginBottom="20dp"
+        android:theme="@style/fontTitleApp" />
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="@string/btnRegister"
-        android:theme="@style/fontBtns"
-        android:background="@drawable/border_button_intro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709" />
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnRegister"
+            android:theme="@style/fontBtns"
+            android:background="@drawable/border_button_intro"
+            android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="@string/btnLogin"
-        android:theme="@style/fontBtns"
-        android:background="@drawable/border_button_intro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.832" />
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnLogin"
+            android:theme="@style/fontBtns"
+            android:background="@drawable/border_button_intro" />
+
+    </LinearLayout>
+</RelativeLayout>

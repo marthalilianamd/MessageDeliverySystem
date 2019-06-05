@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textEmail"
+            android:text="@string/textUser"
             android:theme="@style/fontTextNormal"
             android:layout_margin="@dimen/text_margin"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
             app:layout_constraintVertical_bias="0.077" />
 
             <android.support.design.widget.TextInputEditText
-            android:id="@+id/textEmail"
+            android:id="@+id/textUser"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
             android:hint="@string/textEmail"
@@ -66,7 +66,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textName"
+            android:text="@string/textNombre"
             android:theme="@style/fontTextNormal"
             android:layout_margin="@dimen/text_margin"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -77,11 +77,11 @@
             app:layout_constraintVertical_bias="0.077" />
 
             <android.support.design.widget.TextInputEditText
-            android:id="@+id/tvNameUser"
+            android:id="@+id/textNombre"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/textName"
+            android:hint="@string/textNombre"
             android:theme="@style/fontTextNormal"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textMovil"
+            android:text="@string/textEmail"
             android:theme="@style/fontTextNormal"
             android:layout_margin="@dimen/text_margin"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,11 +107,11 @@
             app:layout_constraintVertical_bias="0.077" />
 
             <android.support.design.widget.TextInputEditText
-            android:id="@+id/tvMovil"
+            android:id="@+id/textEmail"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/textMovil"
+            android:hint="@string/textEmail"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:theme="@style/fontTextNormal"

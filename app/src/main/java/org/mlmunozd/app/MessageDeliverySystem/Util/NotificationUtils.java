@@ -25,7 +25,12 @@ public class NotificationUtils {
         this.mContext = mContext;
     }
 
-    public void showNotificationMessage(final String title, final String message,Intent intent) {
+
+    /**
+     * Muestra la notificación
+     */
+    public void showNotificationMessage(final String title, final String message, final String phone,Intent intent) {
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         // Compruebe si hay un mensaje vacío
         if (TextUtils.isEmpty(message))
             return;
@@ -49,6 +54,7 @@ public class NotificationUtils {
                 .setSmallIcon(R.mipmap.applogo)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
+                .setContentInfo(phone)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);

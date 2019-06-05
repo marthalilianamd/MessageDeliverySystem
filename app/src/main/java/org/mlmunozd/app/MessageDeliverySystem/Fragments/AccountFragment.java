@@ -2,7 +2,7 @@ package org.mlmunozd.app.MessageDeliverySystem.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,7 @@ public class AccountFragment extends Fragment {
     View viewFragAccount;
     TextInputEditText textEmail;
     TextInputEditText tvNameUser;
-    TextInputEditText tvMovil;
+    TextInputEditText tvNombre;
     User user;
 
     public AccountFragment() {
@@ -37,8 +37,8 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textEmail = view.findViewById(R.id.textEmail);
-        tvNameUser = view.findViewById(R.id.tvNameUser);
-        tvMovil = view.findViewById(R.id.tvMovil);
+        tvNameUser = view.findViewById(R.id.textUser);
+        tvNombre = view.findViewById(R.id.textNombre);
 
         String email = getArguments().getString("email");
         user = User.getInstance();
@@ -47,6 +47,6 @@ public class AccountFragment extends Fragment {
         String nameUser = nickname[0];
         textEmail.setText(email);
         tvNameUser.setText(nameUser);
-        tvMovil.setText(String.valueOf(user.getMovil()));
+        tvNombre.setText(nameUser);
     }
 }

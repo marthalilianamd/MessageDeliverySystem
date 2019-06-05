@@ -2,27 +2,27 @@
     <string name="app_name">Message Delivery System</string>
 
     <!--Intro -->
-    <string name="btnRegister">Soy usuario nuevo</string>
-    <string name="btnLogin">Tengo mi cuenta</string>
+    <string name="btnRegister">Registrar móvil</string>
+    <string name="btnLogin">Tengo móvil registrado</string>
 
     <!--Login -->
-    <string name="loginTitle">INGRESAR</string>
+    <string name="loginTitle">INGRESAR A CUENTA AUTORIZADA</string>
     <string name="forgotPass">Olvidó su contraseña?</string>
     <string name="introEmail">Ingresa email</string>
     <string name="introPass">Ingresa la contraseña</string>
     <string name="forgotText">Olvidó la contraseña?</string>
     <string name="hintText"> </string>
-    <string name="ir">Ingresar</string>
+    <string name="ir">Ingreso usuario autorizado</string>
 
     <!--Register -->
-    <string name="registerTitle">REGISTRO</string>
+    <string name="registerTitle">REGISTRO MÓVIL</string>
     <string name="title_activity_account">MessageDeliverySystem</string>
 
     <!-- Account -->
     <string name="AccountTitle">Mi información</string>
-    <string name="textEmail">Usuario :</string>
-    <string name="textName">Nombre : </string>
-    <string name="textMovil">Email :</string>
+    <string name="textUser">Usuario :</string>
+    <string name="textNombre">Nombre : </string>
+    <string name="textEmail">Email :</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

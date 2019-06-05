@@ -1,7 +1,6 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mensajesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.mlmunozd.app.MessageDeliverySystem.Fragments.MensajesFragment">
@@ -10,42 +9,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/margin.linearlayout">
+        android:layout_marginStart="@dimen/margin.linearlayout"
+        android:layout_marginTop="@dimen/margin.linearlayout"
+        android:layout_marginEnd="@dimen/margin.linearlayout"
+        android:layout_marginBottom="@dimen/margin.linearlayout"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/mensajesTittle"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="@string/mensaje.tittle"
-            android:theme="@style/fontTitle"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/fortextview"
             android:elevation="10dp"
             android:padding="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_centerVertical="true"
+            android:text="@string/mensaje.tittle"
             android:textAlignment="center"
-            android:background="@drawable/fortextview"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.211"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.077" />
+            android:theme="@style/fontTitle" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/main.padding.small"
-        tools:listitem="@layout/item_mensaje"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:fastScrollEnabled="true"
-        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
-        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/main.padding.small"
+            app:fastScrollEnabled="true"
+            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+            tools:listitem="@layout/item_mensaje" />
+
+        <LinearLayout
+            android:id="@+id/noMessages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <ImageView
+                android:id="@+id/noMessagesIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_bell"
+                android:tint="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/noMessagesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="No han llegado mensajes"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
+        </LinearLayout>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

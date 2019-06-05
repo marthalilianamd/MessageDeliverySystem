@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/idActivityLogin"
     android:layout_width="match_parent"
@@ -13,64 +12,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="15dp">
-    <TextView
-        android:id="@+id/loginTitle"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:text="@string/loginTitle"
-        android:theme="@style/fontTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08"
-        android:elevation="2dp"
-        />
 
-    <EditText
-        android:id="@+id/emailText"
-        android:layout_width="401dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/introEmail"
-        android:inputType="textEmailAddress"
-        android:theme="@style/fontTextNormal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        <TextView
+            android:id="@+id/loginTitle"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text="@string/loginTitle"
+            android:theme="@style/fontTitle"
+            android:layout_marginBottom="20dp"
+            android:elevation="2dp" />
 
-    <EditText
-        android:id="@+id/passText"
-        android:layout_width="399dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/introPass"
-        android:inputType="textPassword"
-        android:theme="@style/fontTextNormal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="401dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/introEmail"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="20dp"
+            android:theme="@style/fontTextNormal"/>
+
+        <EditText
+            android:id="@+id/passText"
+            android:layout_width="399dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/introPass"
+            android:inputType="textPassword"
+            android:theme="@style/fontTextNormal" />
 
     <TextView
         android:id="@+id/forgotText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/forgotPass"
+        android:text=""
         android:textAlignment="viewStart"
-        android:theme="@style/fontTextMini"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.926"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065" />
+        android:theme="@style/fontTextMini" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,16 +62,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:theme="@style/gomainBtn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.91"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.498" />
+                android:theme="@style/gomainBtn" />
         </LinearLayout>
 
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
