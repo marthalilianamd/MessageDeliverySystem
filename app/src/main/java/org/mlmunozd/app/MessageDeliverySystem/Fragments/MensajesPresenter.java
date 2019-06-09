@@ -37,7 +37,7 @@ public class MensajesPresenter implements MensajeContract.Presenter {
                     @Override
                     public void onLoaded(ArrayList<Mensaje> notifications) {
                         if (notifications.size() > 0) {
-                            Log.e(TAG, "CANTIDAD DE MENSAJES EN EL STORE: "+ notifications.size());
+                            Log.d(TAG, "Cargando Mensajes del almancen, HAY : "+ notifications.size());
                             mMensajeView.showEmptyState(false);
                             mMensajeView.showMensajes(notifications);
                         } else {
@@ -57,21 +57,6 @@ public class MensajesPresenter implements MensajeContract.Presenter {
 
         MensajesStore.getInstance().saveMensajesStore(pushMessage);
         mMensajeView.showEmptyState(false);
-
-        //Si el almacen de mensajes tiene 5 0 más guardados, se borran para liberar memoria
-        /*if(getCantidadMensajesStore()>=5){
-            deleteMensajesStore();
-        }*/
         mMensajeView.popPushMensajes(pushMessage);
     }
-
-    @Override
-    public int getCantidadMensajesStore(){
-        return MensajesStore.getInstance().getCantidadMensajesStore();
-    }
-
-    public void deleteMensajesStore(){
-        MensajesStore.getInstance().removeMensajesStore();
-    }
-
 }

@@ -32,6 +32,7 @@ import org.mlmunozd.app.MessageDeliverySystem.Fragments.MensajesPresenter;
 import org.mlmunozd.app.MessageDeliverySystem.MainActivity;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 
 import static org.mlmunozd.app.MessageDeliverySystem.Logic.Intro.SESSION_DATA;
 
@@ -126,15 +127,14 @@ public class Account extends AppCompatActivity implements NavigationView.OnNavig
         //int id = item.getItemId();
         int id = item.getItemId();
 
-        /*//noinspection SimplifiableIfStatement
         if (id == R.id.stop_service_mensajeria) {
-            getApplicationContext().stopService(new Intent(getApplicationContext(), MensajeService.class));
+            stopService(new Intent(getApplicationContext(), MensajeService.class));
             return true;
         }
         if (id == R.id.start_service_mensajeria) {
-            getApplicationContext().startService(new Intent(getApplicationContext(), MensajeService.class));
+            startService(new Intent(getApplicationContext(), MensajeService.class));
             return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 

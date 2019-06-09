@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1087302060910",
+    "firebase_url": "https://message-delivery-system.firebaseio.com",
+    "project_id": "message-delivery-system",
+    "storage_bucket": "message-delivery-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087302060910:android:620b9cb1a3a5bcf5",
+        "android_client_info": {
+          "package_name": "org.mlmunozd.app.MessageDeliverySystem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8YHft0LxjBkhKZWj8mGU0TdnEeLoKN94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

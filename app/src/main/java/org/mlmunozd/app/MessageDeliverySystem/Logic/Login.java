@@ -15,7 +15,6 @@ import org.mlmunozd.app.MessageDeliverySystem.R;
 
 public class Login extends AppCompatActivity {
     public static final String EXTRA_MESSAGE="";
-    private MyFirebaseMessagingService myfirebaseservice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

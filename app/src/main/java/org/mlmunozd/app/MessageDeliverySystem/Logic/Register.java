@@ -1,6 +1,6 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -35,7 +36,7 @@ public class Register extends AppCompatActivity {
 
     private static final String TAG = "Register";
     public User usermodel;
-    public String email, pass, contrasena;
+    public String email, pass;
     public EditText emailText, passText;
     public AlertDialog mDialog;
     public MyFirebaseMessagingService myfirebaseservice;
@@ -44,7 +45,6 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        //The instruction next hides keyboard
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         ImageButton btnRegister = findViewById(R.id.btnregister);
@@ -84,10 +84,9 @@ public class Register extends AppCompatActivity {
                                 Log.d(TAG,"tokenConsultado: --->>> "+tokenConsultado);
 
                                 if (emailConsultado.equals(email) && contrasenaIgual){
-                                    Log.d(TAG,"--->>> datos correctos");
+                                    Log.d(TAG,"--->>> Datos Correctos");
                                     //si usuario no existe en la App
                                     usermodel = User.getInstance();
-                                    /*if (usermodel.getUser(email) ==null) {*/
                                         registrarMovilAlServer(email);
                                         //registro token existente en App
                                         try {//Registro usuario en App
@@ -97,17 +96,8 @@ public class Register extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), "Usuario no creado, posible problema " + "del sistema", Toast.LENGTH_LONG).show();
                                             Log.e("DBFLow", "Error: al insertar datos del usuario");
                                         }
-                                    /*}else{
-                                        registrarMovilAlServer(email);
-                                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                        Log.d(TAG,"Actualización Token móvil");
-                                    }*/
                                 }else if(!emailConsultado.equals(email) || !contrasenaIgual) {
-                                    Log.d(TAG,"--->>> datos incorrectos");
+                                    Log.d(TAG,"--->>> Datos Incorrectos");
                                     Toast.makeText(getApplicationContext(), "Email o contraseña incorrectas", Toast.LENGTH_LONG).show();
                                 }
                                 else{
@@ -115,6 +105,10 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         }, 8000);
+
+                        Log.d(TAG, "INICIA SERVICIO ...");
+                        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
+                        getApplicationContext().startService(mensajeServiceIntent);
                     }
                 }
             }
@@ -124,7 +118,7 @@ public class Register extends AppCompatActivity {
     public void registrarMovilAlServer(final String email) {
         //Registrar movil a FCM
         String getTokenenServer = SessionManager.getInstance(getApplicationContext()).getTokenMovil();
-        Log.e(TAG, "EXISTEEEEE TOKEN?? --->"+getTokenenServer);
+        Log.d(TAG, "EXISTEE TOKEN  --->"+getTokenenServer);
         if(!getTokenenServer.equals("")) {//si existe token
             Thread hiloToken = new Thread(new Runnable() {
                 String emailuser;
@@ -133,11 +127,11 @@ public class Register extends AppCompatActivity {
                     emailuser = email;
                     myfirebaseservice = new MyFirebaseMessagingService();
                     try {
-                        Log.e(TAG, "ELIMINANDO INSTANCIA");
+                        Log.d(TAG, "ELIMINANDO INSTANCIA");
                         FirebaseInstanceId.getInstance().deleteInstanceId();
                         String newtoken = FirebaseInstanceId.getInstance().getToken("1087302060910",
                                 FirebaseMessaging.INSTANCE_ID_SCOPE);
-                        Log.e(TAG, "TOKEN RENOVADIO:::: ---> "+newtoken);
+                        Log.d(TAG, "TOKEN RENOVADIO:::: ---> "+newtoken);
                         myfirebaseservice.onTokenRefresh(emailuser,Register.this, newtoken);
 
                     } catch (IOException e) {
@@ -151,7 +145,7 @@ public class Register extends AppCompatActivity {
             hiloToken.start();
             Toast.makeText(getApplicationContext(), "Token móvil renovado", Toast.LENGTH_LONG).show();
         }else {
-            Log.e(TAG, "CREANDO INSTANCIA FIREBASE");
+            Log.d(TAG, "CREANDO INSTANCIA FIREBASE");
             myfirebaseservice = new MyFirebaseMessagingService();
             myfirebaseservice.registrarMovil(Register.this, email);
         }

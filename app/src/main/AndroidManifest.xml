@@ -10,8 +10,10 @@
     <uses-permission android:name="android.permission.BODY_SENSORS" />
     <uses-permission android:name="com.samsung.permission.SSENSOR_HRM_RAW_PPG" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+
     <uses-feature android:name="android.hardware.wifi" />
     <uses-feature android:name="android.permission.ACCESS_WIFI_STATE." />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -48,7 +50,8 @@
 
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,41 +62,40 @@
 
         <activity
             android:name=".Logic.Intro"
-            android:screenOrientation="portrait"
-            android:parentActivityName="MainActivity" />
-
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Logic.Login"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Logic.Intro" />
+            android:parentActivityName=".Logic.Intro"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Logic.Register"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" />
-
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Logic.Account"
             android:label="@string/title_activity_account"
-            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-
-        <service
-            android:name=".Logic.MyFirebaseMessagingService">
+        <service android:name=".Logic.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".Fragments.MensajesFragment"
-            android:exported="false">
+        <service android:name=".Services.MensajeService">
             <intent-filter>
-                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="ACTION_OPEN_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".Logic.MensajeReceiver">
+            <intent-filter>
+                <action android:name="NOTIFY_NEW_MESSAGE" />
             </intent-filter>
         </receiver>
-
 
     </application>
 

@@ -1,42 +1,60 @@
 package org.mlmunozd.app.MessageDeliverySystem;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Delete;
 
 import java.util.HashMap;
 
 import org.mlmunozd.app.MessageDeliverySystem.Logic.Account;
-import org.mlmunozd.app.MessageDeliverySystem.Models.Mensaje;
+import org.mlmunozd.app.MessageDeliverySystem.Models.User;
+import org.mlmunozd.app.MessageDeliverySystem.Models.User_Table;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
+
+import jonathanfinerty.once.Once;
+
 
 public class MainActivity extends AppCompatActivity {
     private final int DURACION = 2000;//2segundos
     public static final String SESSION_MESSAGE="";
-    public BroadcastReceiver mybroadcastReceiver;
+
+    private static final String TAG ="MAIN_ACTIVITY";
+    private static final String NEW_INSTALL_APP = "NUEVA_INSTALACION_APP";
+    public User usermodel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*
-        *//**
-         * Broadcast receiver calls
-         * when new push notification is received
-         *//*
-        mybroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Mensaje mensaje = (Mensaje) intent.getSerializableExtra("message");
-                Toast.makeText(getApplicationContext(), "Mensaje entrante de la web: " + mensaje.getContenido(), Toast.LENGTH_LONG).show();
-                //context.startService();
-            }
-        };*/
+        Once.initialise(this);
+
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP)) {
+            //Primera vez que se instala la App
+            Log.d(TAG, "NUEVA INSTALACION APP");
+            Once.markDone(NEW_INSTALL_APP);
+            getSharedPreferences( SessionManager.getPrefName(), 0).edit().clear().commit();
+            usermodel = User.getInstance();
+            usermodel.deleteAllUsers();
+            Toast.makeText(this, "Nueva instalación de la APP \n " +"Registrar el móvil", Toast.LENGTH_LONG).show();
+        }
+
+        if(isInstallFromUpdate(getApplicationContext())){
+            Log.d(TAG, "ACTUALIZACION APP");
+            Toast.makeText(this, "Ha actualizado la version de la APP \n  " +
+                    "Se recomienda Registrar el móvil nuevamente", Toast.LENGTH_LONG).show();
+            SessionManager.IS_LOGIN = "";
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -61,4 +79,29 @@ public class MainActivity extends AppCompatActivity {
             }
         }, DURACION);
     }
+
+
+    public boolean isFirstInstall(Context context) {
+        try {
+            long firstInstallTime =   context.getPackageManager().getPackageInfo(context.getPackageName(), 0).firstInstallTime;
+            long lastUpdateTime = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).lastUpdateTime;
+            return firstInstallTime == lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean isInstallFromUpdate(Context context) {
+        try {
+            long firstInstallTime = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).firstInstallTime;
+            long lastUpdateTime = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).lastUpdateTime;
+            return firstInstallTime != lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
