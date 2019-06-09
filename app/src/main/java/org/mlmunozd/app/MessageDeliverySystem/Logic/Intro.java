@@ -1,6 +1,8 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,5 +64,13 @@ public class Intro extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+    }
+
+    public static String getSessionData() {
+        return SESSION_DATA;
+    }
+
+    public static void setSessionData(String sessionData) {
+        SESSION_DATA = sessionData;
     }
 }

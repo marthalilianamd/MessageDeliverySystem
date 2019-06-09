@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.Context;
-import android.preference.PreferenceManager;
 
 import org.mlmunozd.app.MessageDeliverySystem.Logic.Intro;
 import org.mlmunozd.app.MessageDeliverySystem.Logic.Login;
@@ -22,8 +21,8 @@ public class SessionManager {
     private static SessionManager singletonSessionManager;
 
     private static final String PREF_NAME = "MessageDeliverySystemPREF";
-    private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_EMAIL = "email";
+    public static String IS_LOGIN = "IsLoggedIn";
+    public static String KEY_EMAIL = "email";
     public static final String KEY_PASS = "pass";
     public static final String KEY_EMAIL_REQUEST = "emailrequest";
     public static final String TOKEN_MOVIL = "tokenmovil";
@@ -84,7 +83,6 @@ public class SessionManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         SESSION_DATA="";
-        resetearDatos();
         _context.startActivity(intent);
     }
 
@@ -141,14 +139,27 @@ public class SessionManager {
     }
 
 
-    //RESETEAR DATOS
+    //RESETEAR DATOS REQUEST
     public void resetearDatos(){
         saveEmail("");
         saveContrasena("");
 
         saveEqualContrasena(false);
         saveEmailRequest("");
+    }
 
-        //saveTokenMovil("");
+    public void resetearTodoslosDatos(){
+        IS_LOGIN ="";
+        SESSION_DATA ="";
+        saveEmail("");
+        saveContrasena("");
+        saveEqualContrasena(false);
+        saveEmailRequest("");
+        saveTokenMovil("");
+        saveEqualContrasena(false);
+    }
+
+    public static String getPrefName() {
+        return PREF_NAME;
     }
 }

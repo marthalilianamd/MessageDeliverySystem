@@ -12,4 +12,5 @@ public class DBManager extends Application {
         super.onCreate();
         FlowManager.init(this);
     }
+
 }

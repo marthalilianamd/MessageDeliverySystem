@@ -16,7 +16,5 @@ public interface MensajeContract {
     interface Presenter extends BasePresenter{
         void loadMensajes();
         void savePushMensajes(String title, String description, String movil);
-        int getCantidadMensajesStore();
-        void deleteMensajesStore();
     }
 }

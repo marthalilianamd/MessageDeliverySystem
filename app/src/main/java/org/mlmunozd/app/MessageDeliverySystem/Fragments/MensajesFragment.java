@@ -1,8 +1,6 @@
 package org.mlmunozd.app.MessageDeliverySystem.Fragments;
 
 import android.app.Fragment;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +30,7 @@ import java.util.ArrayList;
 public class MensajesFragment extends Fragment implements MensajeContract.View {
 
     public static final String ACTION_NOTIFY_NEW_MESSAGE = "NOTIFY_NEW_MESSAGE";
-    private static final String TAG = "SobreMensajeFragment";
+    private static final String TAG = "MENSAJEFRGAMENT";
     View viewFragMensajes;
     RecyclerView recyclerview;
     private MensajeAdapter mensajeAdapter;
@@ -56,34 +53,22 @@ public class MensajesFragment extends Fragment implements MensajeContract.View {
         super.onCreate(savedInstanceState);
 
         //Todo esto que esta abajo debe ir e el evento onCreate del Servicio
-        if (getArguments() != null) {
-            // Gets de argumentos
-        }
+        if (getArguments() != null) { }
 
-        //Se inicia el SERVICIO de BROADCASTSERVICE para el envio de mensajeria
         mensajeBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d("BROADCASTRECEIVER", "ENTRRRRRROOOOOOOO");
+                Log.d(TAG, "Mostrar mensaje en lista ");
 
-                String title = intent.getStringExtra("title");
-                String message = intent.getStringExtra("message");
-                String phoneNo = intent.getStringExtra("phone");
+                if(intent.getAction().equals(ACTION_NOTIFY_NEW_MESSAGE)){
+                    String title = intent.getStringExtra("title");
+                    String message = intent.getStringExtra("message");
+                    String phoneNo = intent.getStringExtra("phone");
 
-                Log.d(TAG, "Título: " + title);
-                Log.d(TAG, "Mensaje: " + message);
-                Log.d(TAG, "Movil: " + phoneNo);
-
-                mPresenter.savePushMensajes(title, message, phoneNo);
-                Toast.makeText(context, "SMS enviado: \n " + title + " \n " + message + "\n Para el móvil " + phoneNo, Toast.LENGTH_LONG).show();
-
-            //ENVIO DEL SMS
-                //cuando el mensaje se envía y cuando se entrega, o se establece en nulo
-                //PendingIntent sentIntent = PendingIntent.getActivity(getContext(), 0, new Intent(getContext(), MensajesFragment.class), 0);
-                SmsManager sms = SmsManager.getDefault();
-                sms.sendTextMessage(phoneNo, null, title + " \n " + message, null, null);
-
-               }
+                    mPresenter.savePushMensajes(title, message, phoneNo);
+                    Toast.makeText(context, "Mensaje listado", Toast.LENGTH_LONG).show();
+                }
+            }
         };
     }
 
@@ -110,7 +95,7 @@ public class MensajesFragment extends Fragment implements MensajeContract.View {
         super.onResume();
         mPresenter = new MensajesPresenter(this, FirebaseMessaging.getInstance());
         mPresenter.start();
-
+        Log.d(TAG, "LocalBroadcastManager ONRESUME");
         LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(mensajeBroadcastReceiver,
                 new IntentFilter(ACTION_NOTIFY_NEW_MESSAGE));
     }
@@ -118,11 +103,11 @@ public class MensajesFragment extends Fragment implements MensajeContract.View {
     @Override
     public void onPause() {
         //El BroadcastReceiver (mMensajesReceiver) se detiene mientras la app está en pausa para que no reciba ninguna
-        //Actualización de mensajes mientras este en este estado
+        //Actualización de mensajes mientras este en este estado y asi evitar la duplicación
         super.onPause();
-        /*LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(mensajeBroadcastReceiver);*/
+        Log.d(TAG, "LocalBroadcastManager ONPAUSA");
+        LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(mensajeBroadcastReceiver);
     }
-
 
     @Override
     public void showMensajes(ArrayList<Mensaje> pushMensajes) {

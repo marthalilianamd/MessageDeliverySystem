@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Table(database = MessageDeliverySystemDatabase.class)
-public class User extends BaseModel{
+public class User extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
-    private int idUSer=0;
+    private int idUSer = 0;
 
     @Column
     private String email;
@@ -31,15 +31,15 @@ public class User extends BaseModel{
     private String token_movil = "";
 
     /*
-    * Implementations Singleton
-    */
+     * Implementations Singleton
+     */
     private static User singletonUser;
 
-    public User(){
+    public User() {
     }
 
-    public static User getInstance(){
-        if(singletonUser == null){
+    public static User getInstance() {
+        if (singletonUser == null) {
             singletonUser = new User();
         }
         return singletonUser;
@@ -104,12 +104,29 @@ public class User extends BaseModel{
         this.token_movil = token_movil;
     }
 
-    public User getUser(String emailUser){
+    public User getUser(String emailUser) {
         User user = SQLite.select()
                 .from(User.class)
                 .where(User_Table.email.is(emailUser))
                 .querySingle();
         return user;
+    }
+
+    public List<User> getAllUser() {
+        List<User> usuarios = SQLite.select()
+                .from(User.class)
+                .queryList();
+        return usuarios;
+    }
+
+    public void deleteAllUsers(){
+        List<User> usuarios = SQLite.select()
+                .from(User.class)
+                .queryList();
+
+        for(int i=0; i< usuarios.size(); i++){
+            usuarios.get(i).delete();
+        }
     }
 
 
