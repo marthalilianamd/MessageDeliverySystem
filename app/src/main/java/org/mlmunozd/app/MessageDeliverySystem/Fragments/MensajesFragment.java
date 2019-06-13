@@ -98,6 +98,7 @@ public class MensajesFragment extends Fragment implements MensajeContract.View {
         Log.d(TAG, "LocalBroadcastManager ONRESUME");
         LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(mensajeBroadcastReceiver,
                 new IntentFilter(ACTION_NOTIFY_NEW_MESSAGE));
+        //LocalBroadcastManager.getInstance(this.getContext()).unregisterReceiver(mensajeBroadcastReceiver);
     }
 
     @Override

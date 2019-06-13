@@ -8,14 +8,21 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.mlmunozd.app.MessageDeliverySystem.Logic.EntregadoMensajeReceiver;
+import org.mlmunozd.app.MessageDeliverySystem.Logic.EnviadoMensajeReceiver;
 import org.mlmunozd.app.MessageDeliverySystem.Logic.MensajeReceiver;
 
 
 public class MensajeService extends Service {
 
     public static final String ACTION_NOTIFY_NEW_MESSAGE = "NOTIFY_NEW_MESSAGE";
-    private static final String TAG = "SERVICIO MENSAJES";
+    private static final String TAG = "SERVICIO_MENSAJES";
     public MensajeReceiver mensajeReceiver;
+    public EntregadoMensajeReceiver entregadoMensajeReceiver;
+    public EnviadoMensajeReceiver enviadoMensajeReceiver;
+
+    public static final String ACTION_SENDING_SMS_STATUS ="SEND";
+    public static final String ACTION_DELIVERY_SMS_STATUS = "DELIVERED";
 
     public MensajeService() { }
 
@@ -31,6 +38,13 @@ public class MensajeService extends Service {
         Log.d(TAG, "SERVICIO SMS CREADO");
         mensajeReceiver = new MensajeReceiver();
         registerReceiver(mensajeReceiver,new IntentFilter(ACTION_NOTIFY_NEW_MESSAGE));
+
+        enviadoMensajeReceiver = new EnviadoMensajeReceiver();
+        registerReceiver(enviadoMensajeReceiver,new IntentFilter(ACTION_SENDING_SMS_STATUS));
+
+        entregadoMensajeReceiver = new EntregadoMensajeReceiver();
+        registerReceiver(entregadoMensajeReceiver,new IntentFilter(ACTION_DELIVERY_SMS_STATUS));
+
         Toast.makeText(getApplicationContext(),"Servicio SMS activo!", Toast.LENGTH_LONG).show();
     }
 
@@ -40,6 +54,13 @@ public class MensajeService extends Service {
         Log.d(TAG, "STARTCOMMAND");
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mensajeReceiver,
                 new IntentFilter(ACTION_NOTIFY_NEW_MESSAGE));
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(enviadoMensajeReceiver,
+                new IntentFilter(ACTION_SENDING_SMS_STATUS));
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(entregadoMensajeReceiver,
+                new IntentFilter(ACTION_DELIVERY_SMS_STATUS));
+
         return START_STICKY;
     }
 
@@ -51,5 +72,9 @@ public class MensajeService extends Service {
         Log.d(TAG, "SERVICIO SMS CANCELADO");
         Toast.makeText(getApplicationContext(),"Servicio SMS cancelado!", Toast.LENGTH_LONG).show();
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(mensajeReceiver);
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(enviadoMensajeReceiver);
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(entregadoMensajeReceiver);
+
     }
 }

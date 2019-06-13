@@ -105,10 +105,6 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         }, 8000);
-
-                        Log.d(TAG, "INICIA SERVICIO ...");
-                        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
-                        getApplicationContext().startService(mensajeServiceIntent);
                     }
                 }
             }
