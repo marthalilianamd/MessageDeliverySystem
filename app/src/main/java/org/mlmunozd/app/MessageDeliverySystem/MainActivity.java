@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         Once.initialise(this);
 
-        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP)) {
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP) || isFirstInstall(getApplicationContext())) {
             //Primera vez que se instala la App
             Log.d(TAG, "NUEVA INSTALACION APP");
             Once.markDone(NEW_INSTALL_APP);
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(isInstallFromUpdate(getApplicationContext())){
             Log.d(TAG, "ACTUALIZACION APP");
-            Toast.makeText(this, "Ha actualizado la version de la APP \n  " +
-                    "Se recomienda Registrar el móvil nuevamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Se ha actualizado la version de la APP \n  " +
+                    "Se recomienda Registrar el móvil nuevamente con sus datos autorizados", Toast.LENGTH_LONG).show();
             SessionManager.IS_LOGIN = "";
         }
 

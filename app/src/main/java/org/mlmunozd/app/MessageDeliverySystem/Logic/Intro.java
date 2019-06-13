@@ -1,9 +1,6 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,18 +9,24 @@ import android.widget.Button;
 
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 
 import java.util.HashMap;
 
-import jonathanfinerty.once.Once;
 
 public class Intro extends AppCompatActivity {
 
     public static String SESSION_DATA="";
+    private static final String TAG = "INTRO_ACTIVITY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        Log.d(TAG, "INICIA SERVICIO ...");
+        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
+        getApplicationContext().startService(mensajeServiceIntent);
 
         if(SessionManager.getInstance(getApplicationContext()).isUserLoggedIn()){
             Intent intent = new Intent(getApplicationContext(), Account.class);
@@ -63,14 +66,5 @@ public class Intro extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
-    }
-
-    public static String getSessionData() {
-        return SESSION_DATA;
-    }
-
-    public static void setSessionData(String sessionData) {
-        SESSION_DATA = sessionData;
     }
 }

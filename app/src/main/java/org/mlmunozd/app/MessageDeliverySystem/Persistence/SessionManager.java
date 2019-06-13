@@ -27,6 +27,7 @@ public class SessionManager {
     public static final String KEY_EMAIL_REQUEST = "emailrequest";
     public static final String TOKEN_MOVIL = "tokenmovil";
     public static final String EQUALSOK_PASS = "isEqualContrasena";
+    public static final String MESSAGE_STATUS = "estadomensaje";
 
     public SessionManager(Context context){
         this._context =context;
@@ -137,6 +138,18 @@ public class SessionManager {
     public String getTokenMovil(){
         return mypreferences.getString(TOKEN_MOVIL,"");
     }
+
+
+    public void saveEstadoMensaje(String estado){
+        editor.putString(MESSAGE_STATUS,estado);
+        editor.commit();
+    }
+
+    public String getEstadoMensaje(){
+
+        return mypreferences.getString(MESSAGE_STATUS,"Ninguno");
+    }
+
 
 
     //RESETEAR DATOS REQUEST

@@ -128,11 +128,11 @@ public class Account extends AppCompatActivity implements NavigationView.OnNavig
         int id = item.getItemId();
 
         if (id == R.id.stop_service_mensajeria) {
-            stopService(new Intent(getApplicationContext(), MensajeService.class));
+            getApplicationContext().stopService(new Intent(getApplicationContext(), MensajeService.class));
             return true;
         }
         if (id == R.id.start_service_mensajeria) {
-            startService(new Intent(getApplicationContext(), MensajeService.class));
+            getApplicationContext().startService(new Intent(getApplicationContext(), MensajeService.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

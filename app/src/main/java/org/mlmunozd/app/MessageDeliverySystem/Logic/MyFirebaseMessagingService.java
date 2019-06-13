@@ -1,12 +1,15 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -53,13 +56,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String title = remoteMessage.getData().get("title");
         String message = remoteMessage.getData().get("body");
         String phone = remoteMessage.getData().get("phone");
+        String id_message = remoteMessage.getData().get("id_message");
         Log.d(TAG, "NOTIFICACION RECIBIDA");
+        String NOTIFICATION_CHANNEL_ID = "CHANNEL1";
 
         Intent notificationintent = new Intent();
         notificationintent.setAction(MensajesFragment.ACTION_NOTIFY_NEW_MESSAGE);
         notificationintent.putExtra("title", title);
         notificationintent.putExtra("message", message);
         notificationintent.putExtra("phone", phone);
+        notificationintent.putExtra("id_message", phone);
         notificationintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notificationintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -69,7 +75,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(notificationintent);
 
-        String NOTIFICATION_CHANNEL_ID = "CHANNEL1";
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //ESTO ES LEIDO CUANDO SE TIENE ANDROID 8 y API > 25 (PORQUE LAS NOTIFICACIONES SE MANEJAN CREANDO CANALES)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,"MDS Notification",
+                    NotificationManager.IMPORTANCE_MAX);
+            notificationChannel.setDescription("MSD Channel de la App Message Delivery System");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.GREEN);
+            notificationChannel.setVibrationPattern(new long[]{0,1000,500,1000});
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), NOTIFICATION_CHANNEL_ID);
         final int icon = R.mipmap.applogo;
@@ -85,7 +104,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSound(soundUri)
                 .setContentInfo(phone)
                 .setContentIntent(contentPendingIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build());
     }
 
