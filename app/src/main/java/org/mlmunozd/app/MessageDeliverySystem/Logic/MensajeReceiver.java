@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
-import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 
 public class MensajeReceiver extends BroadcastReceiver {
 
@@ -23,7 +22,6 @@ public class MensajeReceiver extends BroadcastReceiver {
             String title = intent.getStringExtra("title");
             String message = intent.getStringExtra("message");
             String phoneNo = intent.getStringExtra("phone");
-            String id_message = intent.getStringExtra("id_message");
 
             //ENVIO DEL SMS
             send = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_SENDING_SMS_STATUS), 0);
@@ -32,8 +30,6 @@ public class MensajeReceiver extends BroadcastReceiver {
             SmsManager sms = SmsManager.getDefault();
             sms.sendTextMessage(phoneNo, null, title + " \n " + message, send, delivered);
             Toast.makeText(context, "SMS Enviado!  \n " + title + " \n " + message + " \n Para el móvil " + phoneNo, Toast.LENGTH_LONG).show();
-            MyServerRequests myServerRequests = new MyServerRequests();
-            myServerRequests.enviarRegistroEstadoMensaje(context, id_message);
         }
     }
 }

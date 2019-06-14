@@ -56,7 +56,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String title = remoteMessage.getData().get("title");
         String message = remoteMessage.getData().get("body");
         String phone = remoteMessage.getData().get("phone");
-        String id_message = remoteMessage.getData().get("id_message");
         Log.d(TAG, "NOTIFICACION RECIBIDA");
         String NOTIFICATION_CHANNEL_ID = "CHANNEL1";
 
@@ -65,7 +64,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationintent.putExtra("title", title);
         notificationintent.putExtra("message", message);
         notificationintent.putExtra("phone", phone);
-        notificationintent.putExtra("id_message", phone);
         notificationintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notificationintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

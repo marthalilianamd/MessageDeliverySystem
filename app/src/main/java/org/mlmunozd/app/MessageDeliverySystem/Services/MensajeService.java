@@ -39,11 +39,11 @@ public class MensajeService extends Service {
         mensajeReceiver = new MensajeReceiver();
         registerReceiver(mensajeReceiver,new IntentFilter(ACTION_NOTIFY_NEW_MESSAGE));
 
-        enviadoMensajeReceiver = new EnviadoMensajeReceiver();
-        registerReceiver(enviadoMensajeReceiver,new IntentFilter(ACTION_SENDING_SMS_STATUS));
-
         entregadoMensajeReceiver = new EntregadoMensajeReceiver();
         registerReceiver(entregadoMensajeReceiver,new IntentFilter(ACTION_DELIVERY_SMS_STATUS));
+
+        enviadoMensajeReceiver = new EnviadoMensajeReceiver();
+        registerReceiver(enviadoMensajeReceiver,new IntentFilter(ACTION_SENDING_SMS_STATUS));
 
         Toast.makeText(getApplicationContext(),"Servicio SMS activo!", Toast.LENGTH_LONG).show();
     }
