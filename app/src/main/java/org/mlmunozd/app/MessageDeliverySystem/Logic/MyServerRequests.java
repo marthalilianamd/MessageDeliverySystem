@@ -121,7 +121,8 @@ public class MyServerRequests {
      * @param Activity
      * @param String
      */
-    public void enviarRegistroEstadoMensaje(final Context context, String email) {
+    public void enviarRegistroEstadoMensaje(final Context context, final String $estado) {
+        String email = SessionManager.getInstance(context.getApplicationContext()).getEmailRequest();
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, EndPoints.URL_REGISTER_STATE + email + ".json",
                 new Response.Listener<String>() {
                     @Override
@@ -146,7 +147,7 @@ public class MyServerRequests {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("estado", "Enviado");
+                params.put("estado", $estado);
                 return params;
             }
         };
