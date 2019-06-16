@@ -1,5 +1,6 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 import java.util.HashMap;
 
 
+
 public class Intro extends AppCompatActivity {
 
     public static String SESSION_DATA="";
@@ -23,10 +25,6 @@ public class Intro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
-        Log.d(TAG, "INICIA SERVICIO ...");
-        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
-        getApplicationContext().startService(mensajeServiceIntent);
 
         if(SessionManager.getInstance(getApplicationContext()).isUserLoggedIn()){
             Intent intent = new Intent(getApplicationContext(), Account.class);
@@ -67,4 +65,5 @@ public class Intro extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

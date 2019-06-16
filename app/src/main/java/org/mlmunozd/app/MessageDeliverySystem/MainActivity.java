@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.Delete;
 
 import java.util.HashMap;
 
 import org.mlmunozd.app.MessageDeliverySystem.Logic.Account;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
-import org.mlmunozd.app.MessageDeliverySystem.Models.User_Table;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 
 import jonathanfinerty.once.Once;
 
@@ -39,21 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         Once.initialise(this);
 
-        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP) || isFirstInstall(getApplicationContext())) {
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP) || isInstallFromUpdate(getApplicationContext())) {
             //Primera vez que se instala la App
-            Log.d(TAG, "NUEVA INSTALACION APP");
+            Log.d(TAG, "NUEVA INSTALACION APP" );
             Once.markDone(NEW_INSTALL_APP);
             getSharedPreferences( SessionManager.getPrefName(), 0).edit().clear().commit();
             usermodel = User.getInstance();
             usermodel.deleteAllUsers();
-            Toast.makeText(this, "Nueva instalación de la APP \n " +"Registrar el móvil", Toast.LENGTH_LONG).show();
-        }
-
-        if(isInstallFromUpdate(getApplicationContext())){
-            Log.d(TAG, "ACTUALIZACION APP");
-            Toast.makeText(this, "Se ha actualizado la version de la APP \n  " +
-                    "Se recomienda Registrar el móvil nuevamente con sus datos autorizados", Toast.LENGTH_LONG).show();
             SessionManager.IS_LOGIN = "";
+            Toast.makeText(this, "Nueva instalación de la APP \n " +"Registrar el móvil", Toast.LENGTH_LONG).show();
         }
 
         new Handler().postDelayed(new Runnable() {
@@ -80,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
         }, DURACION);
     }
 
+    private int getFirstTimeRun() {
+        SharedPreferences sp = getSharedPreferences("MYAPP", 0);
+        int result, currentVersionCode = BuildConfig.VERSION_CODE;
+        int lastVersionCode = sp.getInt("FIRSTTIMERUN", -1);
+        if (lastVersionCode == -1) result = 0; else
+            result = (lastVersionCode == currentVersionCode) ? 1 : 2;
+        sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply();
+        return result;
+    }
+
 
     public boolean isFirstInstall(Context context) {
         try {
@@ -91,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
 
     public boolean isInstallFromUpdate(Context context) {
         try {

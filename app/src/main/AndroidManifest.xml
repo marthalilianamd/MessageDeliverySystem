@@ -43,26 +43,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon, android:theme">
 
-        <receiver
-            android:name=".Logic.EnviadoMensajeReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ACTION_SENDING_SMS_STATUS" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name=".Logic.EntregadoMensajeReceiver"
-            android:enabled="true"
-            android:exported="true" >
-
-            <intent-filter>
-                <action android:name="ACTION_DELIVERY_SMS_STATUS" />
-            </intent-filter>
-
-        </receiver>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -102,6 +82,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <service android:name=".Services.MensajeService">
             <intent-filter>
                 <action android:name="ACTION_OPEN_SERVICE" />
@@ -111,6 +92,21 @@
         <receiver android:name=".Logic.MensajeReceiver">
             <intent-filter>
                 <action android:name="NOTIFY_NEW_MESSAGE" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver
+            android:name=".Logic.EnviadoMensajeReceiver">
+            <intent-filter>
+                <action android:name="ACTION_SENDING_SMS_STATUS" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".Logic.EntregadoMensajeReceiver" >
+            <intent-filter>
+                <action android:name="ACTION_DELIVERY_SMS_STATUS" />
             </intent-filter>
         </receiver>
 

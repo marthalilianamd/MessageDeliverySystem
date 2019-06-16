@@ -1,6 +1,7 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -105,6 +106,11 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         }, 8000);
+                    }
+                    if(!isMyServiceRunning(MensajeService.class)){
+                        Log.d(TAG, "Iniciando servicio SMS ...");
+                        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
+                        getApplicationContext().startService(mensajeServiceIntent);
                     }
                 }
             }
@@ -245,5 +251,15 @@ public class Register extends AppCompatActivity {
     public boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(getApplicationContext().ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
