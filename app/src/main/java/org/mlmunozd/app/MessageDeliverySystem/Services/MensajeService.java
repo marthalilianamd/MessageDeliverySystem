@@ -64,8 +64,6 @@ public class MensajeService extends Service {
         return START_STICKY;
     }
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();

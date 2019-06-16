@@ -83,6 +83,7 @@ public class SessionManager {
         Intent intent = new Intent (_context, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        IS_LOGIN = "";
         SESSION_DATA="";
         _context.startActivity(intent);
     }
@@ -149,8 +150,6 @@ public class SessionManager {
 
         return mypreferences.getString(MESSAGE_STATUS,"Ninguno");
     }
-
-
 
     //RESETEAR DATOS REQUEST
     public void resetearDatos(){
