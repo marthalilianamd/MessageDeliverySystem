@@ -1,8 +1,10 @@
 package org.mlmunozd.app.MessageDeliverySystem.Logic;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -12,9 +14,12 @@ import android.widget.Toast;
 import org.mlmunozd.app.MessageDeliverySystem.Models.User;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.R;
+import org.mlmunozd.app.MessageDeliverySystem.Services.MensajeService;
 
 public class Login extends AppCompatActivity {
+
     public static final String EXTRA_MESSAGE="";
+    private static final String TAG = "LOGIN_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,13 @@ public class Login extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra(EXTRA_MESSAGE, email);
+
+                            if(!isMyServiceRunning(MensajeService.class)){
+                                Log.d(TAG, "INICIAR SERVICIO SMS ...");
+                                Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
+                                getApplicationContext().startService(mensajeServiceIntent);
+                            }
+
                             startActivity(intent);
                             finish();
                         } else {
@@ -66,5 +78,15 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(getApplicationContext().ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

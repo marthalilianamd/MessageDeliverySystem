@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -15,10 +16,19 @@ public class MensajeReceiver extends BroadcastReceiver {
     String ACTION_SENDING_SMS_STATUS ="SEND";
     String ACTION_DELIVERY_SMS_STATUS = "DELIVERED";
     PendingIntent send, delivered;
+    public EntregadoMensajeReceiver entregadoMensajeReceiver;
+    public EnviadoMensajeReceiver enviadoMensajeReceiver;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(ACTION_NOTIFY_NEW_MESSAGE)){
+
+            entregadoMensajeReceiver = new EntregadoMensajeReceiver();
+            context.registerReceiver(entregadoMensajeReceiver,new IntentFilter(ACTION_DELIVERY_SMS_STATUS));
+
+            enviadoMensajeReceiver = new EnviadoMensajeReceiver();
+            context.registerReceiver(enviadoMensajeReceiver,new IntentFilter(ACTION_SENDING_SMS_STATUS));
+
             String title = intent.getStringExtra("title");
             String message = intent.getStringExtra("message");
             String phoneNo = intent.getStringExtra("phone");

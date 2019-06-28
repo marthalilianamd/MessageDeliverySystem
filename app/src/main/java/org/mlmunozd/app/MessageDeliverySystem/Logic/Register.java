@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
-    private static final String TAG = "Register";
+    private static final String TAG = "REGISTER_ACTIVITY";
     public User usermodel;
     public String email, pass;
     public EditText emailText, passText;
@@ -106,11 +106,11 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         }, 8000);
-                    }
-                    if(!isMyServiceRunning(MensajeService.class)){
-                        Log.d(TAG, "Iniciando servicio SMS ...");
-                        Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
-                        getApplicationContext().startService(mensajeServiceIntent);
+                        if(!isMyServiceRunning(MensajeService.class)){
+                            Log.d(TAG, "INICIAR SERVICIO SMS ...");
+                            Intent mensajeServiceIntent  = new Intent(getApplicationContext(), MensajeService.class);
+                            getApplicationContext().startService(mensajeServiceIntent);
+                        }
                     }
                 }
             }
@@ -179,7 +179,7 @@ public class Register extends AppCompatActivity {
                 JSONObject objJSON = null;
                 MyVolleyAsyncTask myVolleyAsyncTask = new MyVolleyAsyncTask(mContex.getApplicationContext(), email, contrasena);
                 try {
-                    objJSON = myVolleyAsyncTask.execute().get(8, TimeUnit.SECONDS);
+                    objJSON = myVolleyAsyncTask.execute().get(10, TimeUnit.SECONDS);
                 } catch (InterruptedException |ExecutionException | TimeoutException e) {
                     e.printStackTrace();
                 }
@@ -254,7 +254,7 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(getApplicationContext().ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -262,4 +262,5 @@ public class Register extends AppCompatActivity {
         }
         return false;
     }
+
 }

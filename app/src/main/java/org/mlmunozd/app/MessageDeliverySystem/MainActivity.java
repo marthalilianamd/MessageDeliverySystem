@@ -1,10 +1,13 @@
 package org.mlmunozd.app.MessageDeliverySystem;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG ="MAIN_ACTIVITY";
     private static final String NEW_INSTALL_APP = "NUEVA_INSTALACION_APP";
+    static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
     public User usermodel;
 
     @Override
@@ -34,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Once.initialise(this);
 
-        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP) || isInstallFromUpdate(getApplicationContext())) {
+
+        Once.initialise(this);
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, NEW_INSTALL_APP)) {
             //Primera vez que se instala la App
             Log.d(TAG, "NUEVA INSTALACION APP" );
             Once.markDone(NEW_INSTALL_APP);
