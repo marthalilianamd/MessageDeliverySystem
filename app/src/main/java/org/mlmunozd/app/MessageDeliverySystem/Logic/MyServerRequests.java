@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,7 +20,6 @@ import org.json.JSONObject;
 import org.mlmunozd.app.MessageDeliverySystem.Persistence.SessionManager;
 import org.mlmunozd.app.MessageDeliverySystem.Util.EndPoints;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeoutException;
 
 public class MyServerRequests {
 
-    private static final String TAG = "MyServerRequest";
+    private static final String TAG = "MY_SERVER_REQUEST";
 
     public MyServerRequests(){}
 
@@ -122,12 +122,19 @@ public class MyServerRequests {
      * @param String
      */
     public void enviarRegistroEstadoMensaje(final Context context, final String $estado) {
-        String email = SessionManager.getInstance(context.getApplicationContext()).getEmailRequest();
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, EndPoints.URL_REGISTER_STATE + email + ".json",
+        HashMap<String, String> userSession = SessionManager.getInstance(context).getUserDetails();
+        String emailsession = userSession.get(SessionManager.KEY_EMAIL);
+        if(emailsession == null){
+            emailsession= SessionManager.getInstance(context).getEmailRequest();
+        }
+        Log.d(TAG, "Email el que se usa para la petición : " + emailsession);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, EndPoints.URL_REGISTER_STATE + emailsession + ".json",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.d(TAG, "enviarRegistroEstadoMensaje: RESPONSE  : " + response);
                             JSONObject obj = new JSONObject(response);
                             Toast.makeText(context.getApplicationContext(), obj.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
@@ -138,7 +145,7 @@ public class MyServerRequests {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+                        Log.d(TAG, "Error en request: Enviando registro del Estado SMS al Server: " + error.getMessage());
                         Toast.makeText(context.getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -147,11 +154,13 @@ public class MyServerRequests {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("estado", $estado);
+
+                Log.d(TAG, "Estado final SMS: " + $estado);
+                params.put("estadosms", $estado);
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyVolleyRequest.getInstance(context.getApplicationContext()).addToRequestQueue(stringRequest);
     }
-
 }

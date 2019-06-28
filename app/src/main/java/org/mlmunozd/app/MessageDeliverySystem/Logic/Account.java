@@ -38,6 +38,7 @@ import static org.mlmunozd.app.MessageDeliverySystem.Logic.Intro.SESSION_DATA;
 
 public class Account extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG ="ACCOUNT_ACTIVITY";
     public String email;
     public MensajesPresenter mMensajePresenter;
     public MensajesFragment mMensajesFragment;
